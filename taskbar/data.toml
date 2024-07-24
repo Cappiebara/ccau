@@ -1,0 +1,79 @@
+[[tasks]]
+name = "Begin Course Copy"
+path = ""
+help = "Click the --> button to start the copy"
+
+[[tasks]]
+name = "Delete Discussions"
+path = "discussion_topics"
+help = "Delete 'Student Introductions' and 'Questions and Answers'"
+
+[[tasks]]
+name = "Delete Pages"
+path = "pages"
+help = "Delete all pages except University Information"
+
+[[tasks]]
+name = "Verify Settings"
+path = "settings"
+help = "'Restrict students from viewing course before term start date' should be enabled and 'Participation' should be 'Course'"
+
+[[tasks]]
+name = "Copy Content"
+path = "content_migrations"
+help = "Double check the email to make sure you copy the right course"
+
+[[tasks]]
+name = "Fix Menu Order"
+path = "content_migrations"
+help = "Copy StarterFull 7A's Course Settings and External Tools"
+
+[[tasks]]
+name = "Delete Old Library"
+path = "settings/configurations#tab-tools"
+help = "Delete the Henry G Bennett Library item *without* new_tab=1 if it exists"
+
+[[tasks]]
+name = "Move Content"
+path = "modules"
+help = "Click the Auto-Move button, then the arrow in the bottom left"
+
+[[tasks]]
+name = "Delete Empty Modules"
+path = "modules"
+help = "Click the Remove Empty button, then the arrow in the bottom left"
+
+[[tasks]]
+name = "Add Date Headers"
+path = "modules"
+help = "Click the Add Dates button, wait for them to publish, then drag them to the top of their respective modules"
+
+[[tasks]]
+name = "Delete Old GOLD"
+path = "modules"
+help = "Delete the first GOLD Orientation and the first University Information items"
+
+[[tasks]]
+name = "Fix Homepage"
+path = "wiki"
+help = "Use https://k.ngn.tf/8775a to fix broken images; manually fix broken module links"
+
+[[tasks]]
+name = "Check Syllabus"
+path = "assignments/syllabus"
+help = "Check for Blackboard references, as well as getting the grade total / weights"
+
+[[tasks]]
+name = "Check Gradebook"
+path = "gradebook"
+help = "Make sure it matches the syllabus"
+
+[[tasks]]
+name = "Run Link Validator"
+path = "link_validator"
+help = "If any real links are broken, inform the professor"
+
+[[tasks]]
+name = "Done"
+path = ""
+help = "Excellent work, 47. The money has been wired to your account"

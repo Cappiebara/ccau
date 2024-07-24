@@ -1,0 +1,13 @@
+#!/bin/sh
+
+rm -r dist &> /dev/null
+rm -r out &> /dev/null
+
+mkdir out
+mkdir dist
+
+toml2json data.toml > dist/data.json
+tsc --pretty --strict --removeComments
+esbuild --bundle out/index.js --outfile=dist/user.js --banner:js="$(cat info.txt)"
+
+rm -r out &> /dev/null

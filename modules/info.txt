@@ -1,0 +1,10 @@
+// ==UserScript==
+// @name        Modules
+// @namespace   CCAU
+// @description Automate course copies
+// @match       https://*.instructure.com/courses/*/modules
+// @version     0.1.1
+// @author      CIDT
+// @grant       none
+// @license     BSD-3-Clause
+// ==/UserScript==

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+rm -r dist
+mkdir dist
+
+submodules=("gradebook" "modules" "pages" "taskbar")
+
+for m in "${submodules[@]}"; do
+    cd $m
+    ./build && cp dist/user.js ../dist/$m.js
+
+    if [ -f dist/data.json ]; then
+        cp dist/data.json ../dist/$m.json
+    fi
+
+    rm -r dist
+    cd ..
+done
