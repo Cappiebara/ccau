@@ -66,7 +66,7 @@ export function lenientIndexOf(name: string, skip: number = 0): number {
 
 export function lenientName(name: string): Maybe<string> {
   const ln: string = name.toLowerCase();
-  const rgx: RegExp = /^(week|module|unit) \d{1,2}(?=.?)/;
+  const rgx: RegExp = /week[^\d]*\d{1,2}(?=.?)/;
   const matches: Maybe<string[]> = ln.match(rgx);
   const result: Maybe<string> = matches ? matches[0] : null;
 

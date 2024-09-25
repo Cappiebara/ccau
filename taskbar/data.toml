@@ -4,6 +4,11 @@ path = ""
 help = "Click the --> button to start the copy"
 
 [[tasks]]
+name = "Check for Content"
+path = "modules"
+help = "If there is any content, don't do the copy"
+
+[[tasks]]
 name = "Delete Discussions"
 path = "discussion_topics"
 help = "Delete 'Student Introductions' and 'Questions and Answers'"
@@ -25,8 +30,28 @@ help = "Double check the email to make sure you copy the right course"
 
 [[tasks]]
 name = "Fix Menu Order"
-path = "content_migrations"
-help = "Copy StarterFull 7A's Course Settings and External Tools"
+path = "settings#tab-navigation"
+help = """Move the items in the navigation menu to this order:
+
+Home
+Announcements
+Syllabus
+Modules
+Grades
+Submit Grades
+People
+SE Email
+Henry G. Bennett Library
+Tech Support
+Tutor.com
+InSpace
+YuJa
+Panorama
+Lockdown Browser
+Item Banks
+Credentials
+Follett Discover
+"""
 
 [[tasks]]
 name = "Delete Old Library"
@@ -51,7 +76,7 @@ help = "Click the Add Dates button, wait for them to publish, then drag them to 
 [[tasks]]
 name = "Delete Old GOLD"
 path = "modules"
-help = "Delete the first GOLD Orientation and the first University Information items"
+help = "Delete the GOLD Orientation and the University Information which are NOT at the bottom of the START HERE module"
 
 [[tasks]]
 name = "Fix Homepage"
@@ -72,6 +97,11 @@ help = "Make sure it matches the syllabus"
 name = "Run Link Validator"
 path = "link_validator"
 help = "If any real links are broken, inform the professor"
+
+[[tasks]]
+name = "Check Google Sheet"
+path = ""
+help = "Ensure that all the steps on the Google Sheet have been followed. If something there isn't covered in the automation, lmk."
 
 [[tasks]]
 name = "Done"
