@@ -6,5 +6,5 @@
 // @version     0.1.2
 // @author      CIDT
 // @grant       none
-// @license     BSD-3-Clause
+// @license     GPL-3.0-or-later
 // ==/UserScript==

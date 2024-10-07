@@ -60,7 +60,7 @@ Pull requests and issues are welcome!
 CCAU is licensed under GPL-3.0-or-later, which means anyone can use
 it as long as they keep it open source and use the same license. You
 can find details here: https://choosealicense.com/licenses/gpl-3.0/.
-Should a newer version of GPL come out than 3.0, it is preferred.
+Should a newer version of GPL come out than 3.0, newer is preferred.
 
 For users at universities other than mine, you will want to fork this
 and change the contents of all env.ts and data.toml files to match
