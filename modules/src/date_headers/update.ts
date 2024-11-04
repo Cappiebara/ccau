@@ -4,7 +4,7 @@ import { showModal } from "./modal";
 import { safeNestedJSON } from "./utils";
 
 function update() {
-  const day: number = 1000 * 60 * 60 * 24;
+  const day: number = 1E3 * 60 * 60 * 24;
   const now: number = Date.now();
   const last: number = Number(localStorage.getItem("ccau_data_ts")) ?? 0;
 
@@ -17,6 +17,7 @@ function update() {
     .then((data) => {
       localStorage.setItem("ccau_data", data["contents"]);
       localStorage.setItem("ccau_data_ts", now.toString());
+      location.reload();
     });
 }
 

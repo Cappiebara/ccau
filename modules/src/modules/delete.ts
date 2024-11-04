@@ -1,5 +1,6 @@
 import * as u from "../utils";
 import { isEmpty } from "./utils";
+import { ccau_confirm } from "../live";
 
 function clickDelete() {
   const sel: string = ".ui-kyle-menu";
@@ -10,7 +11,11 @@ function clickDelete() {
     .forEach((m) => u.getChild(m as HTMLElement, [5, 0])?.click());
 }
 
-function removeEmpty() {
+async function removeEmpty() {
+  if (!await ccau_confirm("delete empty modules")) {
+    return;
+  }
+
   const orig: () => boolean = u.overrideConfirm();
   const mods: HTMLElement[] = u.moduleList();
 

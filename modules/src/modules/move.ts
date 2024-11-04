@@ -1,6 +1,7 @@
 import * as u from "../utils";
 import { Maybe } from "../types";
 import { isEmpty, getReactHandler } from "./utils";
+import { ccau_confirm } from "../live";
 
 function clickMoveContents() {
   const sel: string = ".ui-kyle-menu";
@@ -35,7 +36,11 @@ function selectDestination(name: string): boolean {
   return true;
 }
 
-function moveAll() {
+async function moveAll() {
+  if (!await ccau_confirm("move content into template modules")) {
+    return;
+  }
+
   const startIdx: number = u.lenientIndexOf("START HERE", 1);
   const mods: HTMLElement[] = u.moduleList();
 

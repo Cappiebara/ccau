@@ -1,9 +1,14 @@
 import * as u from "./utils";
 import { Task, getTasks } from "./task";
+import { isLiveCourse } from "./live";
 
-function main() {
+async function main() {
   if (!document.querySelector("#global_nav_accounts_link")) {
     throw new Error("Only admins can use CCAU");
+  }
+
+  if (await isLiveCourse()) {
+    throw new Error("CCAU is disabled in live courses")
   }
 
   const tasks = getTasks();

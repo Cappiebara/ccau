@@ -1,4 +1,5 @@
 import { Maybe } from "./types";
+import { ccau_confirm } from "./live";
 
 export function observeDOM(element: Element, callback: () => void) {
   const observer = new MutationObserver(callback);
@@ -10,7 +11,11 @@ export function observeDOM(element: Element, callback: () => void) {
   return observer;
 }
 
-function deleteDiscussions() {
+async function deleteDiscussions() {
+  if (!await ccau_confirm("delete all discussions")) {
+    return;
+  }
+
   const sel: string = ".discussions-index-manage-menu";
   const rows: Element[] = Array.from(document.querySelectorAll(sel));
 

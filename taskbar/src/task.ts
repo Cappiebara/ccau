@@ -13,7 +13,7 @@ export class Task {
 }
 
 function update() {
-  const day: number = 1000 * 60 * 60 * 24;
+  const day: number = 1E3 * 60 * 60 * 24;
   const now: number = Date.now();
   const last: number = Number(localStorage.getItem("ccau_task_ts")) ?? 0;
 
@@ -26,6 +26,7 @@ function update() {
     .then((data) => {
       localStorage.setItem("ccau_task", data["contents"]);
       localStorage.setItem("ccau_task_ts", now.toString());
+      location.reload();
     });
 }
 

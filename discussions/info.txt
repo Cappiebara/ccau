@@ -3,8 +3,8 @@
 // @namespace   CCAU
 // @description Automate course copies
 // @match       https://*.instructure.com/courses/*/discussion_topics
-// @version     0.1.0-alpha
+// @version     0.1.1-alpha
 // @author      CIDT
 // @grant       none
-// @license     BSD-3-Clause
+// @license     GPL-3.0-or-later
 // ==/UserScript==

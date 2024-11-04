@@ -53,6 +53,20 @@ on what to do for the current task. The main purpose of this is so
 you can easily go to the next page using the next arrow. Inspired by
 Dawn's spreadsheet, which also needs to be filled out independently.
 
+## Compiling and Usage
+
+CCAU is meant to be used in compiled form with a userscript manager
+such as Violentmonkey or Tampermonkey. If you have a UNIX-like OS
+(MacOS, Linux, etc.) you can use the build script `./build_all`.
+
+Compile-time dependencies include:
+- esbuild
+- toml2json
+- tsc
+
+Windows users are advised to ~~get a better OS~~ use WSL or similar.
+To use a precompiled version, just add it to Violentmonkey.
+
 ## Contributors / Other University Users
 
 Pull requests and issues are welcome!
