@@ -8,10 +8,6 @@ function getCourseID(): string {
 /// Note that concluded courses are also "live" for this purpose
 
 export async function isLiveCourse(): Promise<boolean> {
-  if (document.querySelector("title")?.innerText.includes("Brendan's Sandbox")) {
-    return new Promise((resolve) => resolve(false));
-  }
-
   const response = await fetch(ROOT_URL + "/api/v1/courses/" + getCourseID());
   const data = await response.json();
 

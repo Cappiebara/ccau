@@ -89,9 +89,6 @@
     return window.location.href.match(/courses\/(\d+)/)?.[1] ?? "NO_COURSE_ID";
   }
   async function isLiveCourse() {
-    if (document.querySelector("title")?.innerText.includes("Brendan's Sandbox")) {
-      return new Promise((resolve) => resolve(false));
-    }
     const response = await fetch(ROOT_URL + "/api/v1/courses/" + getCourseID2());
     const data = await response.json();
     return new Date(data["start_at"]) < /* @__PURE__ */ new Date();
