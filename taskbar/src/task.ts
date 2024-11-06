@@ -1,4 +1,4 @@
-import { CORS_PROXY, DATA_URL } from "./env";
+import { DATA_URL } from "./env";
 
 export class Task {
   name: string;
@@ -21,10 +21,10 @@ function update() {
     return;
   }
 
-  fetch(CORS_PROXY + encodeURIComponent(DATA_URL))
+  fetch(DATA_URL)
     .then((response) => response.json())
     .then((data) => {
-      localStorage.setItem("ccau_task", data["contents"]);
+      localStorage.setItem("ccau_task", JSON.stringify(data));
       localStorage.setItem("ccau_task_ts", now.toString());
       location.reload();
     });

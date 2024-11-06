@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name        Pages
+// @name        Discussions
 // @namespace   CCAU
 // @description Automate course copies
-// @match       https://*.instructure.com/courses/*/pages
-// @version     0.1.2
+// @match       https://*.instructure.com/courses/*/discussion_topics
+// @version     0.1.1-alpha
 // @author      CIDT
 // @grant       none
 // @license     GPL-3.0-or-later

@@ -1,4 +1,4 @@
-import { CORS_PROXY, DATA_URL } from "../env";
+import { DATA_URL } from "../env";
 import { Maybe } from "../types";
 import { showModal } from "./modal";
 import { safeNestedJSON } from "./utils";
@@ -12,10 +12,10 @@ function update() {
     return;
   }
 
-  fetch(CORS_PROXY + encodeURIComponent(DATA_URL))
+  fetch(DATA_URL)
     .then((response) => response.json())
     .then((data) => {
-      localStorage.setItem("ccau_data", data["contents"]);
+      localStorage.setItem("ccau_data", JSON.stringify(data));
       localStorage.setItem("ccau_data_ts", now.toString());
       location.reload();
     });

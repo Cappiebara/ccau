@@ -59,6 +59,8 @@ CCAU is meant to be used in compiled form with a userscript manager
 such as Violentmonkey or Tampermonkey. If you have a UNIX-like OS
 (MacOS, Linux, etc.) you can use the build script `./build_all`.
 
+**CORS restrictions must be disabled!**
+
 Compile-time dependencies include:
 - esbuild
 - toml2json
