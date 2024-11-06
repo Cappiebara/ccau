@@ -8,8 +8,9 @@ export function isEmpty(m: HTMLElement): boolean {
 
 export function getReactHandler(obj: object): Maybe<string> {
   const sel: string = "__reactEventHandler";
+  const sel2: string = "__reactProps"; // TODO: Investigate this more. Did it change everywhere???
   const keys: string[] = Object.keys(obj);
-  const key: Maybe<string> = keys.find((k) => k.startsWith(sel));
+  const key: Maybe<string> = keys.find((k) => k.startsWith(sel) || k.startsWith(sel2));
 
   return key;
 }

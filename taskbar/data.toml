@@ -34,6 +34,11 @@ path = "content_migrations"
 help = "Copy the current holiday from the SE University Holidays course (select content)"
 
 [[tasks]]
+name = "Delete Duplicate Menu Items"
+path = "settings/configurations#tab-tools"
+help = "Delete any duplicate menu items. The original item is the first one listed"
+
+[[tasks]]
 name = "Fix Menu Order"
 path = "settings#tab-navigation"
 help = """Move the items in the navigation menu to this order:
@@ -57,11 +62,6 @@ Credentials
 Follett Discover
 (whatever else happens to be there)
 """
-
-[[tasks]]
-name = "Delete Duplicate Menu Items"
-path = "settings/configurations#tab-tools"
-help = "Delete any duplicate menu items. The original item is the first one listed"
 
 [[tasks]]
 name = "Move Content"
