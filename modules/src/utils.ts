@@ -3,8 +3,8 @@ import { Maybe } from "./types";
 /// Add a button to the first element matching a given selector
 
 export function addButton(name: string, fn: VoidFunction, sel: string) {
-  const bar: Maybe<Element> = document.querySelector(sel);
-  const btn: Maybe<Element> = document.createElement("a");
+  const bar = document.querySelector(sel);
+  const btn = document.createElement("a");
 
   btn.textContent = name;
   btn.classList.add("btn");
@@ -18,8 +18,8 @@ export function addButton(name: string, fn: VoidFunction, sel: string) {
 /// Click the first button matching a given selector
 
 export function clickButton(sel: string) {
-  const element: Maybe<Element> = document.querySelector(sel);
-  const btn: Maybe<HTMLElement> = element as Maybe<HTMLElement>;
+  const element = document.querySelector(sel);
+  const btn = element as Maybe<HTMLElement>;
 
   btn?.click();
 }
@@ -31,14 +31,14 @@ export function getChild(
   element: Maybe<HTMLElement>,
   indices: number[],
 ): Maybe<HTMLElement> {
-  let cur: Maybe<HTMLElement> = element;
+  let cur = element;
 
   indices.forEach((i_) => {
-    const children: HTMLCollection = cur?.children as HTMLCollection;
-    const len: number = children.length;
-    const i: number = i_ >= 0 ? i_ : len + i_;
+    const children = cur?.children as Maybe<HTMLCollection>;
+    const len = children?.length ?? 0;
+    const i = i_ >= 0 ? i_ : len + i_;
 
-    len > i ? (cur = children[i] as HTMLElement) : null;
+    len > i ? (cur = children![i] as HTMLElement) : null;
   });
 
   return cur;
@@ -65,10 +65,10 @@ export function lenientIndexOf(name: string, skip: number = 0): number {
 /// START HERE is an exception included because it's used to find the skip number
 
 export function lenientName(name: string): Maybe<string> {
-  const ln: string = name.toLowerCase();
-  const rgx: RegExp = /week[^\d]*\d{1,2}(?=.?)/;
-  const matches: Maybe<string[]> = ln.match(rgx);
-  const result: Maybe<string> = matches ? matches[0] : null;
+  const ln = name.toLowerCase();
+  const rgx = /week[^\d]*\d{1,2}(?=.?)/;
+  const matches = ln.match(rgx);
+  const result = matches ? matches[0] : null;
 
   if (ln.includes("start") && ln.includes("here")) {
     return "START HERE";
@@ -84,7 +84,7 @@ export function lenientName(name: string): Maybe<string> {
 /// Return every module as an HTMLElement
 
 export function moduleList(): HTMLElement[] {
-  const sel: string = ".collapse_module_link";
+  const sel = ".collapse_module_link";
   const mods: HTMLElement[] = Array.from(document.querySelectorAll(sel));
 
   return mods;
@@ -93,9 +93,9 @@ export function moduleList(): HTMLElement[] {
 /// Open the option btnIdx on the hamburger menu for module idx
 
 export function openMenu(idx: number, btnIdx: number) {
-  const mods: HTMLElement[] = moduleList();
-  const hpe: Maybe<HTMLElement> = mods[idx].parentElement;
-  const btn: Maybe<HTMLElement> = getChild(hpe, [5, 0, btnIdx]);
+  const mods = moduleList();
+  const hpe = mods[idx].parentElement;
+  const btn = getChild(hpe, [5, 0, btnIdx]);
 
   btn?.click();
 }
@@ -104,7 +104,7 @@ export function openMenu(idx: number, btnIdx: number) {
 /// This is done so that we can automate removing items
 
 export function overrideConfirm(): () => boolean {
-  const orig: () => boolean = window.confirm;
+  const orig= window.confirm;
   window.confirm = () => true;
 
   return orig;

@@ -1,14 +1,13 @@
 import * as u from "../utils";
-import { Maybe } from "../types";
 import { actOnDates } from "./utils";
 import { removeOldDates } from "./del";
 import { getDates } from "./update";
 
 function defaultToSubheader() {
-  const sel: string = "#add_module_item_select";
-  const element: Maybe<Element> = document.querySelector(sel);
-  const select: HTMLSelectElement = element as HTMLSelectElement;
-  const options: HTMLOptionElement[] = Array.from(select.options);
+  const sel = "#add_module_item_select";
+  const element = document.querySelector(sel);
+  const select = element as HTMLSelectElement;
+  const options = Array.from(select.options);
 
   options?.forEach((opt) => (opt.value = "context_module_sub_header"));
 }
@@ -18,8 +17,8 @@ function publish() {
 }
 
 function setInput(sel: string, val: string) {
-  const element: Maybe<Element> = document.querySelector(sel);
-  const textBox: HTMLInputElement = element as HTMLInputElement;
+  const element = document.querySelector(sel);
+  const textBox = element as HTMLInputElement;
 
   textBox.value = val;
 }
@@ -28,8 +27,8 @@ async function addDates() {
   removeOldDates();
   defaultToSubheader();
 
-  const dates: { [key: string]: string } = await getDates();
-  const mods: HTMLElement[] = u.moduleList();
+  const dates = await getDates();
+  const mods = u.moduleList();
 
   mods
     .map((m) => u.lenientName(m.title))

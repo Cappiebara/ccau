@@ -4,9 +4,9 @@ import { showModal } from "./modal";
 import { safeNestedJSON } from "./utils";
 
 function update() {
-  const day: number = 1E3 * 60 * 60 * 24;
-  const now: number = Date.now();
-  const last: number = Number(localStorage.getItem("ccau_data_ts")) ?? 0;
+  const day = 1E3 * 60 * 60 * 24;
+  const now = Date.now();
+  const last = Number(localStorage.getItem("ccau_data_ts")) ?? 0;
 
   if (now - last < day) {
     return;
@@ -37,9 +37,9 @@ function getDateRange(sem: string, term: string): Maybe<string> {
 
 function datesInRange(dates: string[], range: string): string[] {
   return range.split(",").flatMap((r: string) => {
-    const nums: number[] = r.split("-").map(Number);
-    const start: number = nums[0];
-    const end: Maybe<number> = nums[1];
+    const nums = r.split("-").map(Number);
+    const start = nums[0];
+    const end = nums[1];
 
     return dates.slice(start - 1, end || start);
   });
@@ -61,8 +61,8 @@ export async function getDates(): Promise<{ [key: string]: string }> {
         throw new Error("Null semester or term from modal");
       }
 
-      const rawDates: Maybe<string[]> = getRawDates(sem);
-      const range: Maybe<string> = getDateRange(sem, term);
+      const rawDates = getRawDates(sem);
+      const range = getDateRange(sem, term);
 
       if (!rawDates || !range) {
         resolve({});
@@ -70,7 +70,7 @@ export async function getDates(): Promise<{ [key: string]: string }> {
         return;
       }
 
-      const dates: string[] = datesInRange(rawDates, range);
+      const dates = datesInRange(rawDates, range);
       resolve(datesToWeeks(dates));
     });
   });

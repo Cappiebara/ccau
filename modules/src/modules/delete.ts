@@ -3,8 +3,8 @@ import { isEmpty } from "./utils";
 import { ccau_confirm } from "../live";
 
 function clickDelete() {
-  const sel: string = ".ui-kyle-menu";
-  const menus: Element[] = Array.from(document.querySelectorAll(sel));
+  const sel = ".ui-kyle-menu";
+  const menus = Array.from(document.querySelectorAll(sel));
 
   menus
     .filter((m) => m.getAttribute("aria-hidden") === "false")
@@ -16,8 +16,8 @@ async function removeEmpty() {
     return;
   }
 
-  const orig: () => boolean = u.overrideConfirm();
-  const mods: HTMLElement[] = u.moduleList();
+  const orig = u.overrideConfirm();
+  const mods = u.moduleList();
 
   mods
     .filter((m) => isEmpty(m))

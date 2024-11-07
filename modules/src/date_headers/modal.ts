@@ -1,8 +1,8 @@
 import { Maybe } from "../types";
 
 function createModal(div: HTMLDivElement): HTMLDivElement {
-  const container: HTMLDivElement = document.createElement("div");
-  const content: HTMLDivElement = document.createElement("div");
+  const container = document.createElement("div");
+  const content = document.createElement("div");
 
   container.className = "ccau_modal";
   container.style.position = "fixed";
@@ -33,12 +33,12 @@ function createModal(div: HTMLDivElement): HTMLDivElement {
 }
 
 function semesterButtons(): HTMLButtonElement[] {
-  const cached: string = localStorage.getItem("ccau_data") ?? "{}";
+  const cached = localStorage.getItem("ccau_data") ?? "{}";
   const data = JSON.parse(cached);
-  const semesters: string[] = Object.keys(data["dates"]);
+  const semesters = Object.keys(data["dates"]);
 
   return semesters.map((sem) => {
-    const button: HTMLButtonElement = document.createElement("button");
+    const button = document.createElement("button");
 
     button.textContent = sem;
     button.classList.add("ccau_semester_button");
@@ -51,10 +51,10 @@ function semesterButtons(): HTMLButtonElement[] {
 
 function termButtons(semester: string): HTMLButtonElement[] {
   const data = JSON.parse(localStorage.getItem("ccau_data") || "{}");
-  const terms: string[] = Object.keys(data["ranges"][semester]);
+  const terms = Object.keys(data["ranges"][semester]);
 
   return terms.map((term) => {
-    const button: HTMLButtonElement = document.createElement("button");
+    const button = document.createElement("button");
 
     button.textContent = term;
     button.classList.add("ccau_term_button");
@@ -66,13 +66,13 @@ function termButtons(semester: string): HTMLButtonElement[] {
 }
 
 function replaceButtons(semester: string): void {
-  const sel: string = ".ccau_semester_button";
-  const buttons: Element[] = Array.from(document.querySelectorAll(sel));
+  const sel = ".ccau_semester_button";
+  const buttons = Array.from(document.querySelectorAll(sel));
 
   buttons.forEach((button) => button.remove());
 
-  const newButtons: HTMLButtonElement[] = termButtons(semester);
-  const modal: Maybe<Element> = document.querySelector(".ccau_modal_content");
+  const newButtons = termButtons(semester);
+  const modal = document.querySelector(".ccau_modal_content");
 
   if (!modal) {
     return;
@@ -82,9 +82,9 @@ function replaceButtons(semester: string): void {
 }
 
 export async function showModal(): Promise<[Maybe<string>, Maybe<string>]> {
-  const div: HTMLDivElement = document.createElement("div");
-  const buttons: HTMLButtonElement[] = semesterButtons();
-  const label: HTMLDivElement = document.createElement("div");
+  const div = document.createElement("div");
+  const buttons = semesterButtons();
+  const label = document.createElement("div");
 
   label.textContent = "Which semester is this course?";
   div.appendChild(label);
