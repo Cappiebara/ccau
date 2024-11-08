@@ -43,11 +43,11 @@
     return moduleList().findIndex((m, i) => i >= skip && lenientName(m.title) === lenientName(name));
   }
   function lenientName(name) {
-    const ln = name.toLowerCase();
-    const rgx = /week[^\d]*\d{1,2}(?=.?)/;
-    const matches = ln.match(rgx);
+    const lowerName = name.toLowerCase();
+    const regex = /week[^\d]*\d{1,2}(?=.?)/;
+    const matches = lowerName.match(regex);
     const result = matches ? matches[0] : null;
-    if (ln.includes("start") && ln.includes("here")) {
+    if (lowerName.includes("start") && lowerName.includes("here")) {
       return "START HERE";
     }
     if (!result) {
@@ -62,8 +62,8 @@
   }
   function openMenu(idx, btnIdx) {
     const mods = moduleList();
-    const hpe = mods[idx].parentElement;
-    const btn = getChild(hpe, [5, 0, btnIdx]);
+    const parent = mods[idx].parentElement;
+    const btn = getChild(parent, [5, 0, btnIdx]);
     btn?.click();
   }
   function overrideConfirm() {
@@ -83,13 +83,13 @@
       const rowItem = rows[i];
       const label = getChild(rowItem, [2, 0]);
       const btn = getChild(rowItem, idc);
-      const nm = label?.innerText || "";
-      const rgx = /^\*?[a-z]{3,12} \d{1,2} - [a-z]{0,12} ?\d{1,2}\*?$/;
-      if (!rgx.test(nm.toLowerCase())) {
+      const name = label?.innerText || "";
+      const regex = /^\*?[a-z]{3,12} \d{1,2} - [a-z]{0,12} ?\d{1,2}\*?$/;
+      if (!regex.test(name.toLowerCase())) {
         continue;
       }
       btn?.click();
-      fn(nm);
+      fn(name);
     }
   }
   function safeNestedJSON(data, keys) {
@@ -232,8 +232,7 @@
   }
   function getDateRange(sem, term) {
     const data = JSON.parse(localStorage.getItem("ccau_data") || "{}");
-    const ret = safeNestedJSON(data, ["ranges", sem, term]);
-    return ret;
+    return safeNestedJSON(data, ["ranges", sem, term]);
   }
   function datesInRange(dates, range) {
     return range.split(",").flatMap((r) => {
@@ -302,18 +301,6 @@
     addButton("Add Dates", addDates, ".header-bar-right__buttons");
   }
 
-  // out/modules/utils.js
-  function isEmpty(m) {
-    const mod = m.parentElement?.parentElement;
-    return getChild(mod, [2, 0])?.children.length === 0;
-  }
-  function getReactHandler(obj) {
-    const sel = "__reactProps";
-    const keys = Object.keys(obj);
-    const key = keys.find((k) => k.startsWith(sel));
-    return key;
-  }
-
   // out/live.js
   function getCourseID() {
     return window.location.href.match(/courses\/(\d+)/)?.[1] ?? "NO_COURSE_ID";
@@ -328,6 +315,18 @@
       const didConfirm = confirm("Are you sure you want to " + msg + "?");
       resolve(didConfirm);
     });
+  }
+
+  // out/modules/utils.js
+  function isEmpty(m) {
+    const mod = m.parentElement?.parentElement;
+    return getChild(mod, [2, 0])?.children.length === 0;
+  }
+  function getReactHandler(obj) {
+    const sel = "__reactProps";
+    const keys = Object.keys(obj);
+    const key = keys.find((k) => k.startsWith(sel));
+    return key;
   }
 
   // out/modules/delete.js

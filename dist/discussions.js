@@ -3,7 +3,7 @@
 // @namespace   CCAU
 // @description Automate course copies
 // @match       https://*.instructure.com/courses/*/discussion_topics
-// @version     0.1.1-alpha
+// @version     0.1.2
 // @author      CIDT
 // @grant       none
 // @license     GPL-3.0-or-later
@@ -46,15 +46,15 @@
     rows.map((r) => r.children[0].children[0]).forEach((b) => {
       b.click();
       const sel0 = "#delete-discussion-menu-option";
-      const sel1 = "#confirm_delete_discussions";
       const menuOpt = document.querySelector(sel0);
-      const confirmDelete = document.querySelector(sel1);
       menuOpt?.click();
+      const sel1 = "#confirm_delete_discussions";
+      const confirmDelete = document.querySelector(sel1);
       confirmDelete?.click();
     });
   }
   function addButton() {
-    const sel = ".recent-activity-text-container";
+    const sel = ".pinned-discussions-v2__wrapper";
     const appExists = document.querySelector(sel);
     const btnExists = document.querySelector("#ccau_delete_discussions");
     if (!appExists || btnExists) {

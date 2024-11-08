@@ -26,16 +26,16 @@
 
   // out/check.js
   function deleteAll() {
-    const s = ".select-page-checkbox";
-    const s2 = "#ccau_selectAll";
-    const chk = document.querySelector(s2).checked;
+    const sel = ".select-page-checkbox";
+    const sel2 = "#ccau_selectAll";
+    const checked = document.querySelector(sel2).checked;
     const updatedPages = [
       "University Information",
       "\u270F\uFE0FSE Evaluation Information",
       "Prerequisite Knowledge/Skills"
     ];
-    Array.from(document.querySelectorAll(s)).map((e) => e).filter((e) => e.checked != chk).filter((e) => updatedPages.find((p) => e.ariaLabel?.includes(p)) === void 0).forEach((e) => e.click());
-    if (chk) {
+    Array.from(document.querySelectorAll(sel)).map((e) => e).filter((e) => e.checked != checked).filter((e) => updatedPages.find((p) => e.ariaLabel?.includes(p)) === void 0).forEach((e) => e.click());
+    if (checked) {
       clickButton(".delete_pages");
     }
   }

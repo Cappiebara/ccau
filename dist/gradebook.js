@@ -10,6 +10,19 @@
 // ==/UserScript==
 "use strict";
 (() => {
+  // out/env.js
+  var ROOT_URL = "https://se.instructure.com";
+
+  // out/live.js
+  function getCourseID() {
+    return window.location.href.match(/courses\/(\d+)/)?.[1] ?? "NO_COURSE_ID";
+  }
+  async function isLiveCourse() {
+    const response = await fetch(ROOT_URL + "/api/v1/courses/" + getCourseID());
+    const data = await response.json();
+    return new Date(data["start_at"]) < /* @__PURE__ */ new Date();
+  }
+
   // out/utils.js
   function observeDOM(element, callback) {
     const observer = new MutationObserver(callback);
@@ -43,19 +56,6 @@
     btn.setAttribute("tabindex", "0");
     btn.addEventListener("click", reloadSum);
     bar?.insertAdjacentElement("afterbegin", btn);
-  }
-
-  // out/env.js
-  var ROOT_URL = "https://se.instructure.com";
-
-  // out/live.js
-  function getCourseID() {
-    return window.location.href.match(/courses\/(\d+)/)?.[1] ?? "NO_COURSE_ID";
-  }
-  async function isLiveCourse() {
-    const response = await fetch(ROOT_URL + "/api/v1/courses/" + getCourseID());
-    const data = await response.json();
-    return new Date(data["start_at"]) < /* @__PURE__ */ new Date();
   }
 
   // out/index.js
