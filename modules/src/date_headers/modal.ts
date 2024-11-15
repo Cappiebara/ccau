@@ -1,3 +1,4 @@
+import { DATE_HEADERS } from "../env";
 import { Maybe } from "../types";
 
 function createModal(div: HTMLDivElement): HTMLDivElement {
@@ -33,9 +34,7 @@ function createModal(div: HTMLDivElement): HTMLDivElement {
 }
 
 function semesterButtons(): HTMLButtonElement[] {
-    const cached = localStorage.getItem("ccau_data") ?? "{}";
-    const data = JSON.parse(cached);
-    const semesters = Object.keys(data["dates"]);
+    const semesters = Object.keys(DATE_HEADERS.dates);
 
     return semesters.map((sem) => {
         const button = document.createElement("button");
@@ -50,7 +49,7 @@ function semesterButtons(): HTMLButtonElement[] {
 }
 
 function termButtons(semester: string): HTMLButtonElement[] {
-    const data = JSON.parse(localStorage.getItem("ccau_data") || "{}");
+    const data = JSON.parse(JSON.stringify(DATE_HEADERS));
     const terms = Object.keys(data["ranges"][semester]);
 
     return terms.map((term) => {

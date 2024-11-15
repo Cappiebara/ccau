@@ -1,25 +1,6 @@
-import { DATA_URL } from "../env";
 import { Maybe } from "../types";
 import { showModal } from "./modal";
 import { safeNestedJSON } from "./utils";
-
-function update() {
-    const day = 1E3 * 60 * 60 * 24;
-    const now = Date.now();
-    const last = Number(localStorage.getItem("ccau_data_ts")) ?? 0;
-
-    if (now - last < day) {
-        return;
-    }
-
-    fetch(DATA_URL)
-        .then((response) => response.json())
-        .then((data) => {
-            localStorage.setItem("ccau_data", JSON.stringify(data));
-            localStorage.setItem("ccau_data_ts", now.toString());
-            location.reload();
-        });
-}
 
 function getRawDates(sem: string): Maybe<string[]> {
     const data = JSON.parse(localStorage.getItem("ccau_data") || "{}");
@@ -53,8 +34,6 @@ function datesToWeeks(dates: string[]): { [key: string]: string } {
 
 export async function getDates(): Promise<{ [key: string]: string }> {
     return new Promise((resolve) => {
-        update();
-
         showModal().then(async ([sem, term]) => {
             if (!sem || !term) {
                 throw new Error("Null semester or term from modal");

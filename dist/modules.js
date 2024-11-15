@@ -115,8 +115,39 @@
   }
 
   // out/env.js
-  var DATA_URL = "https://pastebin.com/raw/jjG6BmkL";
   var ROOT_URL = "https://se.instructure.com";
+  var DATE_HEADERS = {
+    dates: {
+      Spring: [
+        "*Jan 13 - Jan 19*",
+        "*Jan 20 - Jan 26*",
+        "*Jan 27 - Feb 2*",
+        "*Feb 3 - Feb 9*",
+        "*Feb 10 - Feb 16*",
+        "*Feb 17 - Feb 23*",
+        "*Feb 24 - Mar 2*",
+        "*Mar 3 - Mar 9*",
+        "*Mar 10 - Mar 16*",
+        "*Mar 24 - Mar 30*",
+        "*Mar 31 - Apr 6*",
+        "*Apr 7 - Apr 13*",
+        "*Apr 14 - Apr 20*",
+        "*Apr 21 - Apr 27*",
+        "*Apr 28 - May 4*",
+        "*May 5 - May 11*"
+      ]
+    },
+    ranges: {
+      Spring: {
+        "14": "1-14",
+        "16": "1-16",
+        "7A": "1-7",
+        "7B": "9-16",
+        "8A": "1-8",
+        "8B": "9-16"
+      }
+    }
+  };
 
   // out/date_headers/modal.js
   function createModal(div) {
@@ -147,9 +178,7 @@
     return container;
   }
   function semesterButtons() {
-    const cached = localStorage.getItem("ccau_data") ?? "{}";
-    const data = JSON.parse(cached);
-    const semesters = Object.keys(data["dates"]);
+    const semesters = Object.keys(DATE_HEADERS.dates);
     return semesters.map((sem) => {
       const button = document.createElement("button");
       button.textContent = sem;
@@ -160,7 +189,7 @@
     });
   }
   function termButtons(semester) {
-    const data = JSON.parse(localStorage.getItem("ccau_data") || "{}");
+    const data = JSON.parse(JSON.stringify(DATE_HEADERS));
     const terms = Object.keys(data["ranges"][semester]);
     return terms.map((term) => {
       const button = document.createElement("button");
@@ -212,19 +241,6 @@
   }
 
   // out/date_headers/update.js
-  function update() {
-    const day = 1e3 * 60 * 60 * 24;
-    const now = Date.now();
-    const last = Number(localStorage.getItem("ccau_data_ts")) ?? 0;
-    if (now - last < day) {
-      return;
-    }
-    fetch(DATA_URL).then((response) => response.json()).then((data) => {
-      localStorage.setItem("ccau_data", JSON.stringify(data));
-      localStorage.setItem("ccau_data_ts", now.toString());
-      location.reload();
-    });
-  }
   function getRawDates(sem) {
     const data = JSON.parse(localStorage.getItem("ccau_data") || "{}");
     const dates = safeNestedJSON(data, ["dates", sem]);
@@ -250,7 +266,6 @@
   }
   async function getDates() {
     return new Promise((resolve) => {
-      update();
       showModal().then(async ([sem, term]) => {
         if (!sem || !term) {
           throw new Error("Null semester or term from modal");
