@@ -1,18 +1,14 @@
+import { DATE_HEADERS } from "../env";
 import { Maybe } from "../types";
 import { showModal } from "./modal";
 import { safeNestedJSON } from "./utils";
 
 function getRawDates(sem: string): Maybe<string[]> {
-    const data = JSON.parse(localStorage.getItem("ccau_data") || "{}");
-    const dates: Maybe<string[]> = safeNestedJSON(data, ["dates", sem]);
-
-    return dates;
+    return safeNestedJSON(DATE_HEADERS, ["dates", sem]);
 }
 
 function getDateRange(sem: string, term: string): Maybe<string> {
-    const data = JSON.parse(localStorage.getItem("ccau_data") || "{}");
-
-    return safeNestedJSON(data, ["ranges", sem, term]);
+    return safeNestedJSON(DATE_HEADERS, ["ranges", sem, term]);
 }
 
 function datesInRange(dates: string[], range: string): string[] {
@@ -43,9 +39,7 @@ export async function getDates(): Promise<{ [key: string]: string }> {
             const range = getDateRange(sem, term);
 
             if (!rawDates || !range) {
-                resolve({});
-                location.reload();
-                return;
+                throw new Error("Dates or range are null")
             }
 
             const dates = datesInRange(rawDates, range);

@@ -82,3 +82,7 @@ For users at universities other than mine, you will want to fork this
 and change the contents of all env.ts and data.toml files to match
 your own course copy process. However, PRs should not modify these as
 the 18-carat/ccau repo is used at my own university.
+
+The easiest way to update is to change the data.toml files, convert
+them to JSON, and copy-paste the output into the env.ts file. Or you
+can write directly in JSON if you have poor taste in serialisation.
