@@ -1,20 +1,21 @@
-import { clickButton } from "./utils";
+import { Maybe, clickButton } from "./ccau";
+
+/// SAFETY: This is safe because Canvas has its own confirmation alert
 
 function deleteAll() {
-    const sel: string = ".select-page-checkbox";
-    const sel2: string = "#ccau_selectAll";
-    const checked = (document.querySelector(sel2) as HTMLInputElement).checked;
+    const selectAll = document.querySelector("#ccau_selectAll") as Maybe<HTMLInputElement>;
+    const checked = selectAll?.checked;
 
     const updatedPages: string[] = [
         "University Information",
         "✏️SE Evaluation Information",
         "Prerequisite Knowledge/Skills",
-    ]
+    ];
 
-    Array.from(document.querySelectorAll(sel))
+    Array.from(document.querySelectorAll(".select-page-checkbox"))
         .map((e) => e as HTMLInputElement)
         .filter((e) => e.checked != checked)
-        .filter((e) => updatedPages.find((p) => e.ariaLabel?.includes(p)) === undefined)
+        .filter((e) => updatedPages.find((p) => e.ariaLabel?.includes(p)) == undefined)
         .forEach((e) => e.click());
 
     if (checked) {
@@ -23,15 +24,14 @@ function deleteAll() {
 }
 
 export function addButton() {
-    const row = document.querySelector("thead");
-    const slot = row?.children[0].children[0];
+    const slot = document.querySelector("thead > tr > th");
     const selectAll = document.createElement("input");
 
     selectAll.type = "checkbox";
     selectAll.id = "ccau_selectAll";
     selectAll.onclick = deleteAll;
 
-    if (!row || slot?.innerHTML.includes("ccau_selectAll")) {
+    if (!slot || slot?.innerHTML.includes(selectAll.id)) {
         return;
     }
 
