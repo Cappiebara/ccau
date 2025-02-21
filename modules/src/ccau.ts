@@ -22,7 +22,7 @@ export async function isLiveCourse(): Promise<boolean> {
     const response = await fetch("https://se.instructure.com/api/v1/courses/" + getCourseID());
     const data = await response.json();
 
-    return new Date(data["start_at"]) < new Date();
+    return new Date(data.start_at) < new Date();
 }
 
 /// Require confirmation from the user before doing anything irreversible
