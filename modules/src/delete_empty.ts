@@ -1,5 +1,5 @@
-import { ccauConfirm } from "ccau";
-import { addButton, isEmpty, moduleList, openMenuItem, withOverriddenConfirm } from "utils";
+import { ccauConfirm } from "./ccau";
+import { addButton, isEmpty, moduleList, openMenuItem, withOverriddenConfirm } from "./utils";
 
 /// SAFETY: This is safe because we confirm with the user and check for content
 

@@ -1,4 +1,4 @@
-import { Maybe, clickButton } from "./ccau";
+import { Maybe, clickButton } from "././ccau";
 
 /// SAFETY: This is safe because Canvas has its own confirmation alert
 

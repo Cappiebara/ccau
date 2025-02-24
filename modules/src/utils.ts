@@ -1,4 +1,4 @@
-import { Maybe } from "ccau";
+import { Maybe } from "./ccau";
 
 /// Determine if a module has any content; this works on collapsed modules too
 

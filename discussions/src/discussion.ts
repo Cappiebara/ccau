@@ -1,4 +1,4 @@
-import { ccauConfirm, clickButton } from "ccau";
+import { ccauConfirm, clickButton } from "./ccau";
 
 /// SAFETY: This is safe because we confirm with the user
 

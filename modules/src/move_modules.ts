@@ -1,5 +1,5 @@
-import { Maybe, ccauConfirm, clickButton } from "ccau";
-import { addButton, getReactHandler, indexOf, isEmpty, lenientIndexOf, lenientName, moduleList, openMenuItem } from "utils";
+import { Maybe, ccauConfirm, clickButton } from "./ccau";
+import { addButton, getReactHandler, indexOf, isEmpty, lenientIndexOf, lenientName, moduleList, openMenuItem } from "./utils";
 
 /// Select the desired destination module from the React form
 /// or return false if it fails for any reason

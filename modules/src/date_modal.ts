@@ -1,4 +1,4 @@
-import { Maybe } from "ccau";
+import { Maybe } from "./ccau";
 
 export const DATE_HEADERS: { [index: string]: { [index: string]: any } } = {
     dates: {

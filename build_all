@@ -3,8 +3,7 @@
 rm -r dist
 mkdir dist
 
-#submodules=("discussions" "gradebook" "modules" "pages" "taskbar")
-submodules=("discussions" "pages")
+submodules=("discussions" "pages" "modules")
 
 for m in "${submodules[@]}"; do
     cd $m
