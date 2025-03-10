@@ -1,8 +1,6 @@
-/// TODO: This file is not fully updated to the 0.2.0 API
-
 import { Maybe, clickButton } from "./ccau";
 import { DATE_HEADERS, showModal } from "./date_modal";
-import { addButton, getChild, indexOf, lenientName, moduleList, withOverriddenConfirm } from "./utils";
+import { addButton, indexOf, lenientName, moduleList, withOverriddenConfirm } from "./utils";
 
 function clickDelete(_: string) {
     const nodes = document.querySelectorAll(".ui-kyle-menu");
@@ -10,37 +8,37 @@ function clickDelete(_: string) {
 
     menus
         .filter((m) => m.getAttribute("aria-hidden") === "false")
-        .forEach((m) => {
-            const len = m.children.length;
-            const btn = getChild(m, [len - 1, 0]);
-
-            btn?.click();
-        });
+        .forEach((m) => (m.querySelector("li > .delete_link") as Maybe<HTMLElement>)?.click());
 }
 
 /// SAFETY: This is safe because date headers can be recreated easily
 
 function removeOldDates() {
-    withOverriddenConfirm(() => actOnDates([5, 2, 1, -1, 0], clickDelete));
+    withOverriddenConfirm(() => actOnDates(".ig-admin > .cog-menu-container > ul > li > .delete_link", clickDelete));
 }
 
-function actOnDates(idc: number[], fn: (nm: string) => void) {
+/// For each date header, run a given function
+
+function actOnDates(selectorPath: string, fn: (nm: string) => void) {
     const rows = document.querySelectorAll(".ig-row");
     const len = rows.length;
 
     for (let i = 0; i < len; i++) {
         const rowItem = rows[i] as Maybe<HTMLElement>;
-        const label = getChild(rowItem, [2, 0]);
-        const btn = getChild(rowItem, idc);
-        const name = label?.innerText || "";
+        const label = rowItem?.querySelector(".ig-info > module-item-title") as Maybe<HTMLElement>;
+        const btn = rowItem?.querySelector(selectorPath) as Maybe<HTMLElement>;
         const regex = /^\*?[a-z]{3,12} \d{1,2} - [a-z]{0,12} ?\d{1,2}\*?$/;
 
-        if (!regex.test(name.toLowerCase())) {
+        if (!label?.innerText) {
+            continue;
+        }
+
+        if (!regex.test(label?.innerText.toLowerCase())) {
             continue;
         }
 
         btn?.click();
-        fn(name);
+        fn(label.innerText);
     }
 }
 
@@ -82,8 +80,6 @@ function defaultToSubheader() {
     options?.forEach((opt) => (opt.value = "context_module_sub_header"));
 }
 
-/// Set the title to a given value
-
 function setInput(val: string) {
     const element = document.querySelector("#sub_header_title");
     const textBox = element as HTMLInputElement;
@@ -91,16 +87,16 @@ function setInput(val: string) {
     textBox.value = val;
 }
 
-function openMenu(idx: number, btnIdx: number) {
+function openMenu(idx: number) {
     const mods = moduleList();
     const parent = mods[idx].parentElement;
-    const btn = getChild(parent, [5, 0, btnIdx]);
+    const btn = parent?.querySelector(".module_header_items > .ig-header-admin > .add_module_item_link") as Maybe<HTMLElement>;
 
     btn?.click();
 }
 
 function publish() {
-    actOnDates([3, 1, 0], (_) => { });
+    actOnDates(".ig-admin > span[title='Publish'] > i", (_) => { });
 }
 
 async function addDates() {
@@ -115,7 +111,7 @@ async function addDates() {
         .filter((n) => n && dates[n])
         .map((n) => n as string)
         .forEach((n) => {
-            openMenu(indexOf(n), 2);
+            openMenu(indexOf(n));
             setInput(dates[n]);
             clickButton(".add_item_button");
         });

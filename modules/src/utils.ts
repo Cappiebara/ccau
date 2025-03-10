@@ -4,7 +4,9 @@ import { Maybe } from "./ccau";
 
 export function isEmpty(m: HTMLElement): boolean {
     const module = m.parentElement?.parentElement;
-    return getChild(module, [2, 0])?.children.length === 0;
+    const list = module?.querySelector(".content > ul");
+
+    return list?.children.length === 0;
 }
 
 /// Novel technique to get the internal React handler to manipulate forms
@@ -18,19 +20,19 @@ export function getReactHandler(obj: object): Maybe<string> {
 /// SAFETY: Hardcoded CI paths have been broken by Canvas updates before
 /// so they should be replaced by CSS selectors when possible
 
-export function getChild(element: Maybe<HTMLElement>, indices: number[]): Maybe<HTMLElement> {
-    let cur = element;
-
-    indices.forEach((i_) => {
-        const children = cur?.children as Maybe<HTMLCollection>;
-        const length = children?.length ?? 0;
-        const i = i_ >= 0 ? i_ : length + i_;
-
-        length > i ? (cur = children![i] as HTMLElement) : null;
-    });
-
-    return cur;
-}
+// export function getChild(element: Maybe<HTMLElement>, indices: number[]): Maybe<HTMLElement> {
+//     let cur = element;
+//
+//     indices.forEach((i_) => {
+//         const children = cur?.children as Maybe<HTMLCollection>;
+//         const length = children?.length ?? 0;
+//         const i = i_ >= 0 ? i_ : length + i_;
+//
+//         length > i ? (cur = children![i] as HTMLElement) : null;
+//     });
+//
+//     return cur;
+// }
 
 /// Open the option with a given `name` on the menu for module at index `index`
 
@@ -66,7 +68,7 @@ export function indexOf(name: string, skip: number = 0): number {
     );
 }
 
-/// indexOf but it uses lenientName
+/// indexOf but it uses lenientName rather than toLowerCase
 
 export function lenientIndexOf(name: string, skip: number = 0): number {
     return moduleList().findIndex(
@@ -90,7 +92,7 @@ export function lenientName(name: string): Maybe<string> {
     return result ? "Week " + result.split(" ")[1] : null;
 }
 
-/// Return every module as an HTMLElement
+/// Return every module, i.e., collapse_module_link, as an HTMLElement
 
 export function moduleList(): HTMLElement[] {
     return Array.from(document.querySelectorAll(".collapse_module_link"));
