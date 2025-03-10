@@ -1,5 +1,9 @@
 # Canvas Copy Automatic Userscripts
 
+> Notice: All new work is currently being done in the 0.2.0 branch.
+> It adds a number of safety features and generally cleaner code.
+> On the off-chance that anyone wants to make a PR, please do it there.
+
 Automate course copies. Pronounced the same as "cow." CCAU is divided
 into several sections, depending on which page(s) are targeted. These
 sections are: Discussions, Gradebook, Modules, Pages, and Taskbar.
