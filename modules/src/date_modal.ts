@@ -12,7 +12,7 @@ export const DATE_HEADERS: { [index: string]: { [index: string]: any } } = {
             "*Jun 23 - Jun 29*",
             "*Jun 30 - Jul 6*",
             "*Jul 7 - Jul 13*",
-            "**Jul 14 - Jul 20*",
+            "*Jul 14 - Jul 20*",
             "*Jul 21 - Jul 27*",
             "*Jul 28 - Aug 3*",
             "*Aug 4 - Aug 10*",

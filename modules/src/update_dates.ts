@@ -25,7 +25,7 @@ function actOnDates(selectorPath: string, fn: (nm: string) => void) {
 
     for (let i = 0; i < len; i++) {
         const rowItem = rows[i] as Maybe<HTMLElement>;
-        const label = rowItem?.querySelector(".ig-info > module-item-title") as Maybe<HTMLElement>;
+        const label = rowItem?.querySelector(".ig-info > .module-item-title") as Maybe<HTMLElement>;
         const btn = rowItem?.querySelector(selectorPath) as Maybe<HTMLElement>;
         const regex = /^\*?[a-z]{3,12} \d{1,2} - [a-z]{0,12} ?\d{1,2}\*?$/;
 
