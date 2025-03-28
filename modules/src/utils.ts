@@ -15,25 +15,6 @@ export function getReactHandler(obj: object): Maybe<string> {
     return Object.keys(obj).find((k) => k.startsWith("__reactProps"));
 }
 
-/// Given an element and a child-index path, return the specified child
-/// NB: Negative numbers in the CI path mean "n from the end"
-/// SAFETY: Hardcoded CI paths have been broken by Canvas updates before
-/// so they should be replaced by CSS selectors when possible
-
-// export function getChild(element: Maybe<HTMLElement>, indices: number[]): Maybe<HTMLElement> {
-//     let cur = element;
-//
-//     indices.forEach((i_) => {
-//         const children = cur?.children as Maybe<HTMLCollection>;
-//         const length = children?.length ?? 0;
-//         const i = i_ >= 0 ? i_ : length + i_;
-//
-//         length > i ? (cur = children![i] as HTMLElement) : null;
-//     });
-//
-//     return cur;
-// }
-
 /// Open the option with a given `name` on the menu for module at index `index`
 
 export function openMenuItem(index: number, name: string) {

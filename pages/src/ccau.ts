@@ -22,6 +22,10 @@ export async function isLiveCourse(): Promise<boolean> {
     const response = await fetch("https://se.instructure.com/api/v1/courses/" + getCourseID());
     const data = await response.json();
 
+    if (!data.start_at) {
+        return new Promise((resolve) => resolve(true));
+    }
+
     return new Date(data.start_at) < new Date();
 }
 

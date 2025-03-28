@@ -1,5 +1,5 @@
-import { isAdmin, isLiveCourse, observeDOM } from "././ccau";
-import { addButton } from "././checkbox";
+import { isAdmin, isLiveCourse, observeDOM } from "./ccau";
+import { addButton } from "./checkbox";
 
 async function main() {
     if (!isAdmin()) {
