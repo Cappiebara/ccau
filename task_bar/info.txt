@@ -1,0 +1,10 @@
+// ==UserScript==
+// @name        Task Bar
+// @namespace   CCAU
+// @description Automate course copies
+// @match       https://*.instructure.com/courses/*
+// @version     0.2.0
+// @author      18-carat
+// @grant       none
+// @license     GPL-3.0-or-later
+// ==/UserScript==
