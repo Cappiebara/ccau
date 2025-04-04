@@ -3,18 +3,19 @@
 rm -r dist
 mkdir dist
 
-submodules=("discussions" "gradebook" "modules" "pages" "taskbar")
+submodules=( "discussions" "pages" "modules" "task_bar" )
 
 for m in "${submodules[@]}"; do
     cd $m
-    
-    chmod +x build
-    ./build && cp dist/user.js ../dist/$m.js
 
-    if [ -f dist/data.json ]; then
-        cp dist/data.json ../dist/$m.json
-    fi
+    rm -r out dist &> /dev/null
+    mkdir out dist
 
-    rm -r dist
+    tsc --pretty --strict --removeComments
+    esbuild --bundle out/index.js --outfile=dist/user.js --banner:js="$(cat info.txt)"
+
+    cp dist/user.js ../dist/$m.js
+    rm -r out dist &> /dev/null
+
     cd ..
 done

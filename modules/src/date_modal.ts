@@ -1,5 +1,36 @@
-import { DATE_HEADERS } from "../env";
-import { Maybe } from "../types";
+import { Maybe } from "./ccau";
+
+export const DATE_HEADERS: { [index: string]: { [index: string]: any } } = {
+    dates: {
+        Summer: [
+            "*May 12 - May 18*",
+            "*May 19 - May 25*",
+            "*May 26 - Jun 1*",
+            "*Jun 2 - Jun 8*",
+            "*Jun 9 - Jun 15*",
+            "*Jun 16 - Jun 22*",
+            "*Jun 23 - Jun 29*",
+            "*Jun 30 - Jul 6*",
+            "*Jul 7 - Jul 13*",
+            "*Jul 14 - Jul 20*",
+            "*Jul 21 - Jul 27*",
+            "*Jul 28 - Aug 3*",
+            "*Aug 4 - Aug 10*",
+            "*Aug 11 - Aug 17*",
+        ]
+    },
+
+    ranges: {
+        Summer: {
+            "14": [1, 14],
+            "7A": [1, 7],
+            "7B": [8, 14],
+            "8": [4, 11],
+            "4A": [4, 7],
+            "4B": [8, 11],
+        }
+    }
+};
 
 function createModal(div: HTMLDivElement): HTMLDivElement {
     const container = document.createElement("div");
@@ -34,12 +65,10 @@ function createModal(div: HTMLDivElement): HTMLDivElement {
 }
 
 function semesterButtons(): HTMLButtonElement[] {
-    const semesters = Object.keys(DATE_HEADERS.dates);
-
-    return semesters.map((sem) => {
+    return Object.keys(DATE_HEADERS.dates).map((semester) => {
         const button = document.createElement("button");
 
-        button.textContent = sem;
+        button.textContent = semester;
         button.classList.add("ccau_semester_button");
         button.classList.add("btn");
         button.style.margin = "5px";
@@ -49,10 +78,7 @@ function semesterButtons(): HTMLButtonElement[] {
 }
 
 function termButtons(semester: string): HTMLButtonElement[] {
-    const data = JSON.parse(JSON.stringify(DATE_HEADERS));
-    const terms = Object.keys(data["ranges"][semester]);
-
-    return terms.map((term) => {
+    return Object.keys(DATE_HEADERS.ranges[semester]).map((term) => {
         const button = document.createElement("button");
 
         button.textContent = term;
@@ -64,25 +90,21 @@ function termButtons(semester: string): HTMLButtonElement[] {
     });
 }
 
-function replaceButtons(semester: string): void {
-    const sel = ".ccau_semester_button";
-    const buttons = Array.from(document.querySelectorAll(sel));
+function addTermButtonsForSemester(semester: string) {
+    Array.from(document.querySelectorAll(".ccau_semester_button")).forEach((button) => button.remove());
 
-    buttons.forEach((button) => button.remove());
-
-    const newButtons = termButtons(semester);
+    const buttons = termButtons(semester);
     const modal = document.querySelector(".ccau_modal_content");
 
     if (!modal) {
         return;
     }
 
-    newButtons.forEach((button) => modal.appendChild(button));
+    buttons.forEach((button) => modal.appendChild(button));
 }
 
 export async function showModal(): Promise<[Maybe<string>, Maybe<string>]> {
     const div = document.createElement("div");
-    const buttons = semesterButtons();
     const label = document.createElement("div");
 
     label.textContent = "Which semester is this course?";
@@ -92,28 +114,28 @@ export async function showModal(): Promise<[Maybe<string>, Maybe<string>]> {
     let term: Maybe<string> = null;
 
     return new Promise((resolve) => {
-        const tCallback = (btn: HTMLButtonElement) => {
-            btn.addEventListener("click", () => {
-                term = btn.textContent;
+        const termCallback = (button: HTMLButtonElement) => {
+            button.addEventListener("click", () => {
+                term = button.textContent;
                 resolve([semester, term]);
                 modal.remove();
             });
         };
 
-        const sCallback = (btn: HTMLButtonElement) => {
-            btn.addEventListener("click", () => {
-                semester = btn.textContent;
-                replaceButtons(semester || "");
+        const semesterCallback = (button: HTMLButtonElement) => {
+            button.addEventListener("click", () => {
+                semester = button.textContent;
+                addTermButtonsForSemester(semester || "");
 
                 Array.from(document.querySelectorAll(".ccau_term_button"))
                     .map((e) => e as HTMLButtonElement)
-                    .forEach(tCallback);
+                    .forEach(termCallback);
             });
 
-            div.appendChild(btn);
+            div.appendChild(button);
         };
 
-        buttons.forEach(sCallback);
+        semesterButtons().forEach(semesterCallback);
         const modal = createModal(div);
     });
 }
