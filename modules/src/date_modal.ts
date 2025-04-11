@@ -17,7 +17,26 @@ export const DATE_HEADERS: { [index: string]: { [index: string]: any } } = {
             "*Jul 28 - Aug 3*",
             "*Aug 4 - Aug 10*",
             "*Aug 11 - Aug 17*",
-        ]
+        ],
+
+        Fall: [
+            "*Aug 18 - Aug 24*",
+            "*Aug 25 - Aug 31*",
+            "*Sep 1 - Sep 7*",
+            "*Sep 8 - Sep 14*",
+            "*Sep 15 - Sep 21*",
+            "*Sep 22 - Sep 28*",
+            "*Sep 29 - Oct 5*",
+            "*Oct 6 - Oct 12*",
+            "*Oct 13 - Oct 19*",
+            "*Oct 20 - Oct 26*",
+            "*Oct 27 - Nov 2*",
+            "*Nov 3 - Nov 9*",
+            "*Nov 10 - Nov 16*",
+            "*Nov 17 - Nov 23*",
+            "*Dec 1 - Dec 7*",
+            "*Dec 8 - Dec 14*",
+        ],
     },
 
     ranges: {
@@ -28,8 +47,17 @@ export const DATE_HEADERS: { [index: string]: { [index: string]: any } } = {
             "8": [4, 11],
             "4A": [4, 7],
             "4B": [8, 11],
-        }
-    }
+        },
+
+        Fall: {
+            "16": [1, 16],
+            "7A": [1, 7],
+            "7B": [9, 15],
+            "8A": [1, 8],
+            "8B": [9, 16],
+            "14": [1, 15],
+        },
+    },
 };
 
 function createModal(div: HTMLDivElement): HTMLDivElement {
