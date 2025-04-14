@@ -12,8 +12,8 @@ async function removeEmpty() {
         const modules = moduleList();
 
         modules
-            .filter((m) => isEmpty(m))
-            .map((m) => modules.indexOf(m))
+            .filter(isEmpty)
+            .map(modules.indexOf)
             .forEach((i) => openMenuItem(i, "Delete this module"));
     });
 }

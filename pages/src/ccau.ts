@@ -23,7 +23,7 @@ export async function isLiveCourse(): Promise<boolean> {
     const data = await response.json();
 
     if (!data.start_at) {
-        return new Promise((resolve) => resolve(true));
+        return new Promise((resolve) => resolve(false));
     }
 
     return new Date(data.start_at) < new Date();

@@ -128,7 +128,7 @@ function addTermButtonsForSemester(semester: string) {
         return;
     }
 
-    buttons.forEach((button) => modal.appendChild(button));
+    buttons.forEach(modal.appendChild);
 }
 
 export async function showModal(): Promise<[Maybe<string>, Maybe<string>]> {
