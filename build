@@ -3,7 +3,7 @@
 rm -r dist
 mkdir dist
 
-submodules=("assignments" "discussions" "pages" "modules" "task_bar" )
+submodules=("assignments" "discussions" "modules" "pages" "task_bar" )
 
 for m in "${submodules[@]}"; do
     cd $m

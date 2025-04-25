@@ -13,7 +13,7 @@ async function removeEmpty() {
 
         modules
             .filter(isEmpty)
-            .map(modules.indexOf)
+            .map((m) => modules.indexOf(m))
             .forEach((i) => openMenuItem(i, "Delete this module"));
     });
 }

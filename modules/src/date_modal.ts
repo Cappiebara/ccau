@@ -119,7 +119,7 @@ function termButtons(semester: string): HTMLButtonElement[] {
 }
 
 function addTermButtonsForSemester(semester: string) {
-    Array.from(document.querySelectorAll(".ccau_semester_button")).forEach((button) => button.remove());
+    Array.from(document.querySelectorAll(".ccau_semester_button")).forEach((b) => b.remove());
 
     const buttons = termButtons(semester);
     const modal = document.querySelector(".ccau_modal_content");
@@ -128,7 +128,7 @@ function addTermButtonsForSemester(semester: string) {
         return;
     }
 
-    buttons.forEach(modal.appendChild);
+    buttons.forEach((b) => modal.appendChild(b));
 }
 
 export async function showModal(): Promise<[Maybe<string>, Maybe<string>]> {

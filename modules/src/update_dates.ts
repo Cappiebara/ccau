@@ -2,7 +2,7 @@ import { Maybe, clickButton } from "./ccau";
 import { DATE_HEADERS, showModal } from "./date_modal";
 import { addButton, indexOf, lenientName, moduleList, withOverriddenConfirm } from "./utils";
 
-function clickDelete(_: string) {
+function clickDelete(_: HTMLElement) {
     const nodes = document.querySelectorAll(".ui-kyle-menu");
     const menus = Array.from(nodes).map((e) => e as HTMLElement);
 
@@ -17,28 +17,38 @@ function removeOldDates() {
     withOverriddenConfirm(() => actOnDates(".ig-admin > .cog-menu-container > ul > li > .delete_link", clickDelete));
 }
 
+// Determine if a module item is a date header
+
+function isDateHeader(item: HTMLElement): Boolean {
+    const label = item.querySelector(".ig-info > .module-item-title") as Maybe<HTMLElement>;
+    const regex = /^\*?[a-z]{3,12} \d{1,2} - [a-z]{0,12} ?\d{1,2}\*?$/;
+
+    if (!label?.innerText || !regex.test(label?.innerText.toLowerCase())) {
+        return false;
+    }
+
+    return true;
+}
+
 /// For each date header, run a given function
 
-function actOnDates(selectorPath: string, fn: (nm: string) => void) {
+function actOnDates(selector: Maybe<string>, fn: (item: HTMLElement) => void) {
     const rows = document.querySelectorAll(".ig-row");
     const len = rows.length;
 
     for (let i = 0; i < len; i++) {
-        const rowItem = rows[i] as Maybe<HTMLElement>;
-        const label = rowItem?.querySelector(".ig-info > .module-item-title") as Maybe<HTMLElement>;
-        const btn = rowItem?.querySelector(selectorPath) as Maybe<HTMLElement>;
-        const regex = /^\*?[a-z]{3,12} \d{1,2} - [a-z]{0,12} ?\d{1,2}\*?$/;
+        const item = rows[i] as Maybe<HTMLElement>;
 
-        if (!label?.innerText) {
+        if (!item || !isDateHeader(item)) {
             continue;
         }
 
-        if (!regex.test(label?.innerText.toLowerCase())) {
-            continue;
+        if (selector) {
+            const button = item?.querySelector(selector) as Maybe<HTMLElement>;
+            button?.click();
         }
 
-        btn?.click();
-        fn(label.innerText);
+        fn(item);
     }
 }
 
@@ -77,8 +87,10 @@ function defaultToSubheader() {
     const select = element as HTMLSelectElement;
     const options = Array.from(select.options);
 
-    options?.forEach((opt) => (opt.value = "context_module_sub_header"));
+    options?.forEach((o) => (o.value = "context_module_sub_header"));
 }
+
+/// Set the input textbox for the title
 
 function setInput(val: string) {
     const element = document.querySelector("#sub_header_title");
@@ -87,16 +99,70 @@ function setInput(val: string) {
     textBox.value = val;
 }
 
+/// Open the action menu for the nth module
+
 function openMenu(idx: number) {
     const mods = moduleList();
     const parent = mods[idx].parentElement;
-    const btn = parent?.querySelector(".module_header_items > .ig-header-admin > .add_module_item_link") as Maybe<HTMLElement>;
+    const button = parent?.querySelector(".module_header_items > .ig-header-admin > .add_module_item_link") as Maybe<HTMLElement>;
 
-    btn?.click();
+    button?.click();
 }
+
+/// Simulate a mouse event
+
+function simulate(element: Element | Document, type: string, x: number, y: number) {
+    const event = new MouseEvent(type, {
+        bubbles: true,
+        cancelable: true,
+        clientX: x,
+        clientY: y,
+        view: window,
+    });
+
+    element.dispatchEvent(event);
+}
+
+/// Drag a given module item above another item
+/// The scrollIntoView call is VERY IMPORTANT.
+
+async function dragItem(item: HTMLElement) {
+    const target = item.closest("ul")?.querySelector("li");
+    const handle = item.querySelector(".ig-handle > .draggable-handle");
+
+    if (!target || !handle) {
+        return;
+    }
+
+    handle.scrollIntoView();
+
+    const sourceBox = handle.getBoundingClientRect();
+    const startX = sourceBox.left + sourceBox.width / 2;
+    const startY = sourceBox.top + sourceBox.height / 2;
+
+    const targetBox = target.getBoundingClientRect();
+    const endX = targetBox.left + targetBox.width / 2;
+    const endY = targetBox.top + targetBox.height / 2;
+
+    simulate(handle, "mousedown", startX, startY);
+    simulate(document, "mousemove", startX + 1, startY + 1);
+    simulate(document, "mousemove", endX, endY);
+
+    target.scrollIntoView();
+
+    simulate(document, "mouseup", endX, endY);
+}
+
+/// Click the bublish button for all dates
 
 function publish() {
     actOnDates(".ig-admin > span[title='Publish'] > i", (_) => { });
+}
+
+/// Move all date headers to the top of their respective modules
+
+function moveToTop() {
+    actOnDates(null, dragItem);
 }
 
 async function addDates() {
@@ -116,7 +182,8 @@ async function addDates() {
             clickButton(".add_item_button");
         });
 
-    setTimeout(publish, 1500);
+    setTimeout(moveToTop, 1E3);
+    setTimeout(publish, 1E3);
 }
 
 export function addDateButton() {

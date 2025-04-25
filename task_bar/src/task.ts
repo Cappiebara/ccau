@@ -37,11 +37,6 @@ const TASKS = {
             "path": "pages"
         },
         {
-            "help": "'Restrict students from viewing course before term start date' should be enabled and 'Participation' should be 'Course'",
-            "name": "Verify Settings",
-            "path": "settings"
-        },
-        {
             "help": "Double check the email to make sure you copy the right course",
             "name": "Copy Content",
             "path": "content_migrations"
@@ -72,13 +67,13 @@ const TASKS = {
             "path": "modules"
         },
         {
-            "help": "Click the Add Dates button, wait for them to publish, then drag them to the top of their respective modules",
+            "help": "Click the Add Dates button and wait for them to publish and move into place",
             "name": "Add Date Headers",
             "path": "modules"
         },
         {
             "help": "Delete any GOLD Orientation and the University Information items which are NOT at the bottom of the START HERE module",
-            "name": "Delete Old GOLD",
+            "name": "Delete Old START HERE Items",
             "path": "modules"
         },
         {
@@ -87,13 +82,8 @@ const TASKS = {
             "path": "modules"
         },
         {
-            "help": "Delete any duplicate Question and Answer or Student Introductions discussions",
-            "name": "Delete Duplicate Discussions",
-            "path": "discussion_topics"
-        },
-        {
             "help": "Delete any undeployed GOLD Orientation assignments and empty categories",
-            "name": "Delete Duplicate Assignments",
+            "name": "Delete Old GOLD and Empty Groups",
             "path": "assignments"
         },
         {
