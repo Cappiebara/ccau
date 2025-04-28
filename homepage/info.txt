@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name        Pages
+// @name        Home Page
 // @namespace   CCAU
 // @description Automate course copies
-// @match       https://*.instructure.com/courses/*/pages
+// @match       https://*.instructure.com/courses/*/pages/home-page/edit
 // @version     0.2.0
 // @author      Cappiebara
 // @grant       none

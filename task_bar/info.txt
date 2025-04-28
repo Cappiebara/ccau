@@ -4,7 +4,7 @@
 // @description Automate course copies
 // @match       https://*.instructure.com/courses/*
 // @version     0.2.1
-// @author      18-carat
+// @author      Cappiebara
 // @grant       none
 // @license     GPL-3.0-or-later
 // ==/UserScript==
