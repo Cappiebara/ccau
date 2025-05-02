@@ -1,11 +1,20 @@
 import { Maybe } from "./ccau";
 
 function getAltText(element: Maybe<HTMLElement>): Maybe<string> {
-    if (!element) {
+    const altText = element?.getAttribute("alt")?.toString();
+
+    if (!altText) {
         return null;
     }
 
-    return element.getAttribute("alt")?.toString()?.replace(" Module Button", "");
+    if (altText.toLowerCase() === "start here") {
+        return "START HERE";
+    }
+
+    const pattern = /Week \d{1,2}/;
+    const arr = pattern.exec(altText);
+
+    return arr ? arr[0] : null;
 }
 
 function relinkModuleButtons() {
