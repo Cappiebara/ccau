@@ -1,10 +1,32 @@
+import { Maybe } from "./ccau";
+
+function getAltText(element: Maybe<HTMLElement>): Maybe<string> {
+    if (!element) {
+        return null;
+    }
+
+    return element.getAttribute("alt")?.toString()?.replace(" Module Button", "");
+}
+
 function relinkModuleButtons() {
-    const moduleButtons = Array.from(document.querySelectorAll("img[alt^='Week']")) as HTMLElement[];
-    const links = Array.from(document.querySelectorAll("div[data-testid='instructure_links-Link']")) as HTMLElement[];
+    const iframe = document.querySelector("#wiki_page_body_ifr") as Maybe<HTMLIFrameElement>;
+    const contentDocument = iframe?.contentDocument;
+
+    if (!contentDocument) {
+        throw new Error("Couldn't access iframe's content document");
+    }
+
+    const moduleButtons = Array.from(contentDocument.querySelectorAll("img[alt^='Week']")) as HTMLElement[];
+    const links = Array.from(document.querySelectorAll("div[data-testid='instructure_links-Link'] > div[role='button']")) as HTMLElement[];
 
     moduleButtons
-        .map((b) => [b, links.find((l) => l.innerText === b.title)!])
-        .forEach((bl) => { bl[0].click(); bl[1].click() });
+        .map((b) => [b, getAltText(b)])
+        .filter((ba) => ba[1])
+        .map((ba) => [ba[0], links.find((l) => l.innerText.startsWith(ba[1]!.toString()))])
+        .forEach((bl) => {
+            (bl[0] as HTMLElement).click();
+            (bl[1] as Maybe<HTMLElement>)?.click();
+        });
 }
 
 export function addButton() {
@@ -23,3 +45,4 @@ export function addButton() {
 
     slot?.insertAdjacentElement("afterbegin", button);
 }
+
