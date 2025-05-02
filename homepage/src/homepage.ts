@@ -7,10 +7,6 @@ function getAltText(element: Maybe<HTMLElement>): Maybe<string> {
         return null;
     }
 
-    if (altText.toLowerCase() === "start here") {
-        return "START HERE";
-    }
-
     const pattern = /Week \d{1,2}/;
     const arr = pattern.exec(altText);
 
