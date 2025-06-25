@@ -17,6 +17,7 @@ export function getCourseID(): string {
 
 /// A course is considered "live" if the start date is before the current date
 /// Note that concluded courses are also "live" for this purpose
+/// However, preview week courses are *not* considered live
 
 export async function isLiveCourse(): Promise<boolean> {
     const response = await fetch("https://se.instructure.com/api/v1/courses/" + getCourseID());
@@ -26,7 +27,10 @@ export async function isLiveCourse(): Promise<boolean> {
         return new Promise((resolve) => resolve(false));
     }
 
-    return new Date(data.start_at) < new Date();
+    const start_date = new Date(data.start_at);
+    start_date.setDate(start_date.getDate() + 7);
+
+    return start_date < new Date();
 }
 
 /// Require confirmation from the user before doing anything irreversible

@@ -3,7 +3,7 @@
 // @namespace   CCAU
 // @description Automate course copies
 // @match       https://*.instructure.com/courses/*/discussion_topics
-// @version     0.2.1
+// @version     0.2.2
 // @author      Cappiebara
 // @grant       none
 // @license     GPL-3.0-or-later
