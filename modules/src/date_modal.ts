@@ -2,23 +2,6 @@ import { Maybe } from "./ccau";
 
 export const DATE_HEADERS: { [index: string]: { [index: string]: any } } = {
     dates: {
-        Summer: [
-            "*May 12 - May 18*",
-            "*May 19 - May 25*",
-            "*May 26 - Jun 1*",
-            "*Jun 2 - Jun 8*",
-            "*Jun 9 - Jun 15*",
-            "*Jun 16 - Jun 22*",
-            "*Jun 23 - Jun 29*",
-            "*Jun 30 - Jul 6*",
-            "*Jul 7 - Jul 13*",
-            "*Jul 14 - Jul 20*",
-            "*Jul 21 - Jul 27*",
-            "*Jul 28 - Aug 3*",
-            "*Aug 4 - Aug 10*",
-            "*Aug 11 - Aug 17*",
-        ],
-
         Fall: [
             "*Aug 18 - Aug 24*",
             "*Aug 25 - Aug 31*",
@@ -40,15 +23,6 @@ export const DATE_HEADERS: { [index: string]: { [index: string]: any } } = {
     },
 
     ranges: {
-        Summer: {
-            "14": [1, 14],
-            "7A": [1, 7],
-            "7B": [8, 14],
-            "8": [4, 11],
-            "4A": [4, 7],
-            "4B": [8, 11],
-        },
-
         Fall: {
             "16": [1, 16],
             "7A": [1, 7],

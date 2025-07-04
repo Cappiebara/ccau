@@ -3,7 +3,7 @@
 // @namespace   CCAU
 // @description Automate course copies
 // @match       https://*.instructure.com/courses/*/pages/*/edit
-// @version     0.2.3
+// @version     0.2.2
 // @author      Cappiebara
 // @grant       none
 // @license     GPL-3.0-or-later
