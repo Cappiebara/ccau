@@ -87,9 +87,14 @@ const TASKS = {
             path: "assignments"
         },
         {
-            help: "Manually relink Start Here, then click Re-Link Modules. If images are broken, use https://k.ngn.tf/8775a",
+            help: "Manually relink Start Here, then click Re-Link Modules. If images are broken, use the fix from the Google Sheet",
             name: "Fix Homepage",
             path: "wiki"
+        },
+        {
+            help: "Respondus will break unless the tab is visited",
+            name: "Fix Respondus",
+            path: "external_tools/281"
         },
         {
             help: "Make sure the dates are correct, especially regarding the holiday-adjacent weeks",
