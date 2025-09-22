@@ -1,6 +1,6 @@
 import { Maybe, clickButton } from "./ccau";
 import { DATE_HEADERS, showModal } from "./date_modal";
-import { addButton, indexOf, lenientName, moduleList, withOverriddenConfirm } from "./utils";
+import { addButton, indexOf, lenientName, lenientIndexOf, moduleList, withOverriddenConfirm } from "./utils";
 
 function clickDelete(_: HTMLElement) {
     const nodes = document.querySelectorAll(".ui-kyle-menu");
@@ -177,7 +177,7 @@ async function addDates() {
         .filter((n) => n && dates[n])
         .map((n) => n as string)
         .forEach((n) => {
-            openMenu(indexOf(n));
+            openMenu(lenientIndexOf(n));
             setInput(dates[n]);
             clickButton(".add_item_button");
         });
