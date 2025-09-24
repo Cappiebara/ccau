@@ -4,11 +4,9 @@ Automate course copies on the Canvas LMS. Pronounced like “cow.”
 
 CCAU is divided into several sections based on which page(s) are targeted. These sections are independent, but I recommend using them all together for the best experience.
 
-{{TOC}}
-
 ## Assignments
 
-Adds a Delete Empty Groups button to the assignments page. Does what it says on the tin.
+Adds a Delete Empty Groups button to the assignments page.
 
 ## Discussions
 
@@ -53,6 +51,6 @@ Precompiled versions are available on [OpenUserJS](https://openuserjs.org/users/
 
 PRs and issues *from CIDT employees* are welcome!
 
-CCAU is licensed under GPL-3.0-or-later, which means anyone can use it as long as they keep it open source and use the same license. Should a newer version of the GNU Public License come out, that newer version is preferred.
+CCAU is licensed under GPL-3.0-or-later, which means anyone can use it as long as they keep it open source and use the same license. In the event that a newer version of the GNU Public License should be released, that newer version takes precedence over all previous versions of the license.
 
 `modules/src/date_modal.ts` and `task_bar/src/task.ts` will need to be updated periodically as they contain the term dates and tasks, respectively. Both are stored in a very simple format so no TypeScript experience is needed.
