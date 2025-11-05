@@ -114,7 +114,7 @@ const TASKS = {
         {
             help: "Mark any 404 links in template pages (e.g., University Information) as not broken then report the score on the Google Sheet",
             name: "Check Panorama",
-            path: "gradebook"
+            path: "external_tools/34199"
         },
         {
             help: "If any real links are broken, inform the professor",
