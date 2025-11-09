@@ -1,94 +1,54 @@
-# This workflow builds the project's submodules into individual userscripts.
-
 name: Build Userscripts
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push events but only for the "main" branch
   push:
     branches: [ "main" ]
-  # Triggers the workflow on pull request events for the "main" branch
   pull_request:
     branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Check out your repository's code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Set up the Node.js environment (still needed to get npm)
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          # Specify the Node.js version
           node-version: 20.x
-          # We aren't using a package.json, so no npm caching needed
 
-      # 3. Install TypeScript and esbuild globally
       - name: Install TypeScript and esbuild
         run: |
           npm install -g typescript
           npm install -g esbuild
 
-      # 4. Run the build script logic
       - name: Build all submodules
         run: |
-          # Create the top-level distribution directory
-          echo "Creating main dist/ directory..."
           rm -r dist || true
           mkdir dist
 
-          # Define the list of submodules to build
           submodules=("assignments" "discussions" "homepage" "modules" "pages" "task_bar")
 
-          # Loop through each submodule and build it
           for m in "${submodules[@]}"; do
-            echo "--- Building $m ---"
-            
-            # Navigate into the submodule directory
             cd $m
 
-            # Clean up previous build artifacts
             rm -r out dist &> /dev/null || true
             mkdir out dist
 
-            # Run TypeScript compiler
-            echo "Running tsc for $m..."
-            # Assumes a tsconfig.json is present in the submodule directory or root
             tsc --pretty --strict --removeComments
-
-            # Run esbuild to bundle and add banner
-            echo "Running esbuild for $m..."
             esbuild --bundle out/index.js --outfile=dist/user.js --banner:js="$(cat info.txt)"
 
-            # Copy the final artifact to the top-level dist directory
-            echo "Copying artifact to root dist/..."
             cp dist/user.js ../dist/$m.js
-
-            # Clean up local build directories
             rm -r out dist &> /dev/null || true
 
-            # Return to the root directory
             cd ..
-            echo "--- Finished $m ---"
           done
 
-          echo "Build process complete. Final files in dist/:"
-          ls -l dist/
-
-      # 5. Upload the final 'dist' directory as a build artifact
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          # Name of the artifact in GitHub Actions
           name: userscripts
-          # Path to the directory to upload
           path: dist/
