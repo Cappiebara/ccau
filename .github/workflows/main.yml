@@ -1,0 +1,66 @@
+name: Build Userscripts
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Install dependencies with Nix
+        run: |
+          nix-env -iA nixpkgs.typescript
+          nix-env -iA nixpkgs.esbuild
+
+      - name: Build all submodules
+        run: |
+          echo "Creating main dist/ directory..."
+          rm -r dist || true
+          mkdir dist
+
+          submodules=("assignments" "discussions" "homepage" "modules" "pages" "task_bar")
+
+          for m in "${submodules[@]}"; do
+            echo "--- Building $m ---"
+            
+            cd $m
+
+            rm -r out dist &> /dev/null || true
+            mkdir out dist
+
+            echo "Running tsc for $m..."
+            tsc --pretty --strict --removeComments
+
+            echo "Running esbuild for $m..."
+            esbuild --bundle out/index.js --outfile=dist/user.js --banner:js="$(cat info.txt)"
+
+            echo "Copying artifact to root dist/..."
+            cp dist/user.js ../dist/$m.js
+
+            rm -r out dist &> /dev/null || true
+
+            cd ..
+            echo "--- Finished $m ---"
+          done
+
+          echo "Build process complete. Final files in dist/:"
+          ls -l dist/
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: userscripts
+          path: dist/
