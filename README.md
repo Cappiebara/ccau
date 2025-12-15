@@ -1,5 +1,7 @@
 # Course Copy Automatic Userscripts
 
+> DEAR NEW MAINTAINER: Fork this repo and use the GitHub Actions to compile so you don't need Mac/Linux. Then download the artifact, unzip it, and upload whichever files you changed to your own OpenUserJS account. **Make sure to have people uninstall the one from my account and install the one from your account!**
+
 Automate course copies on the Canvas LMS. Pronounced like “cow.”
 
 CCAU is divided into several sections based on which page(s) are targeted. These sections are independent, but I recommend using them all together for the best experience.
